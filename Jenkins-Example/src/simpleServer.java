@@ -1,49 +1,28 @@
-import java.net.*;
 import java.io.*;
-public class simpleServer{
- public static void main(String[] args) throws IOException {
-     int numRequests = 0;
-     ServerSocket serverSocket = null;
-     try {
-         serverSocket = new ServerSocket(8081);
-     } catch (IOException e) {
-         System.err.println("Could not listen on port: 1234");
-         System.exit(1);
-     }
-
-     Socket clientSocket = null;
-     try {
-         clientSocket = serverSocket.accept();
-     } catch (IOException e) {
-         System.err.println("Was not Accepted!");
-         System.exit(1);
-     }
-
-     try {
-         BufferedReader brIn = new BufferedReader(new InputStreamReader(
-                 clientSocket.getInputStream()
-         ));
-         PrintWriter out = new PrintWriter(clientSocket.getOutputStream(),true);
+import java.net.Socket;
+import java.net.ServerSocket;
+public class simpleServer {
+    public static void main(String[] args) throws IOException {
+        int numRequests = 0;
+        final ServerSocket server = new ServerSocket(8080);
+        System.out.println("Listening for connection on port 8080");
 
 
-     } catch (IOException e){
-           System.out.println(" Failure, We Suck Again!");
-           System.exit(1);
+        while (true){
+            final Socket clientSocket = server.accept();
+            InputStream inputStream = clientSocket.getInputStream();
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            BufferedReader br = new BufferedReader(inputStreamReader);
+            String num = br.readLine();
+            System.out.println("Client: " + num +" "+ "Message Received");
 
-     }
-
-  while(true){
-      try{
-          String line = brIn.readLine
-      }
-  }
-
-
-
-
-
-
-
- }
-
+            //client message
+            OutputStream outputStream = clientSocket.getOutputStream();
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
+            BufferedWriter bw = new BufferedWriter(outputStreamWriter);
+            String returnClient = Integer.toString(numRequests++);
+            bw.write(returnClient);
+            bw.flush();
+        }
+    }
 }
