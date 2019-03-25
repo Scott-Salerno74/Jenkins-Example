@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-public class simpleHandler extends AbstractHandler {
+public class simpleHandler {
+//extends AbstractHandler {
 
     protected int totalNumberOfRequests = 0;
 
